@@ -9,6 +9,9 @@ const Login = () => {
     password: ''
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setLoginData({
@@ -24,6 +27,7 @@ const Login = () => {
       Auth.login(data.token);
     } catch (err) {
       console.error('Failed to login', err);
+      setErrorMessage('Login failed. Please check your username and password.'); // Set error message
     }
   };
 
@@ -46,6 +50,7 @@ const Login = () => {
           onChange={handleChange}
         />
         <button type='submit'>Submit Form</button>
+        {errorMessage && <p className='error'>{errorMessage}</p>}
       </form>
     </div>
     
